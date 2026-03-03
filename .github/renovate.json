@@ -8,6 +8,7 @@
     {
       "matchManagers": ["dockerfile"],
       "matchPackageNames": ["openclaw"],
+      "matchDepTypes": ["ARG"],
       "versioning": "npm",
       "automerge": true,
       "minimumReleaseAge": "1h"
