@@ -28,7 +28,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 
 
 # renovate: datasource=npm depName=openclaw versioning=loose
-ARG OPENCLAW_VERSION=2026.2.6-3
+ARG OPENCLAW_VERSION=2026.3.2
 RUN npm install -g openclaw@${OPENCLAW_VERSION}
 
 # Install ClawHub CLI for skill management
