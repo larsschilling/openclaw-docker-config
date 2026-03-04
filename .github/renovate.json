@@ -8,7 +8,12 @@
       "fileMatch": ["(^|/)Dockerfile$", "(^|/)docker-compose\\.yml$"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[\\w-\\/@]+)(?: versioning=(?<versioning>[\\w-]+))?\\s+ARG\\s+(?<variable>\\w+)=(?<currentValue>.*)\\s"
-      ],
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["openclaw"],
       "automerge": true,
       "minimumReleaseAge": "1h"
     }
