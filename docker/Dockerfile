@@ -26,6 +26,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && apt-get update && apt-get install -y --no-install-recommends gh \
   && rm -rf /var/lib/apt/lists/*
 
+
 # renovate: datasource=npm depName=openclaw versioning=loose
 ARG OPENCLAW_VERSION=2026.2.6-3
 RUN npm install -g openclaw@${OPENCLAW_VERSION}
