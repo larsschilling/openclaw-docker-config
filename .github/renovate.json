@@ -15,7 +15,7 @@
   "packageRules": [
     {
       "matchPackageNames": ["openclaw"],
-      "automerge": true,
+  "automerge": false,
       "minimumReleaseAge": "1h"
     }
   ]
