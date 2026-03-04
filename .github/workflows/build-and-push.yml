@@ -51,7 +51,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build and push gateway image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile
@@ -63,7 +63,7 @@ jobs:
             ${{ env.GHCR_PREFIX }}/openclaw-gateway:${{ github.sha }}
 
       - name: Build and push workspace-sync image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: docker/workspace-sync
           file: docker/workspace-sync/Dockerfile
