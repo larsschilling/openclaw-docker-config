@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     gnupg \
     tini \
+    python3 \
+    python3-pip \
+    python3-venv \
+    ffmpeg \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GitHub CLI (required by github skill)
@@ -25,7 +29,6 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
       > /etc/apt/sources.list.d/github-cli.list \
   && apt-get update && apt-get install -y --no-install-recommends gh \
   && rm -rf /var/lib/apt/lists/*
-
 
 # renovate: datasource=npm depName=openclaw versioning=loose
 ARG OPENCLAW_VERSION=2026.3.2
@@ -44,5 +47,12 @@ COPY workspace-templates/ /opt/workspace-templates/
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 USER node
+
+# Nach dem USER node Wechsel:
+RUN python3 -m venv /home/node/.venv
+ENV PATH="/home/node/.venv/bin:$PATH"
+
+# Pakete als node installieren
+RUN /home/node/.venv/bin/pip install --no-cache-dir faster-whisper
 
 ENTRYPOINT ["tini", "--", "entrypoint.sh"]
