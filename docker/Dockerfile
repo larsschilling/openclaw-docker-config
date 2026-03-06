@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     unzip \
     libsqlite3-dev \
+    build-essential \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GitHub CLI (required by github skill)
