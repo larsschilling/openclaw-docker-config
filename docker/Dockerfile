@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     python3-venv \
     ffmpeg \
+    unzip \
+    libsqlite3-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GitHub CLI (required by github skill)
@@ -54,5 +56,13 @@ ENV PATH="/home/node/.venv/bin:$PATH"
 
 # Pakete als node installieren
 RUN /home/node/.venv/bin/pip install --no-cache-dir faster-whisper
+
+# Bun installieren
+RUN curl -fsSL https://bun.sh/install | bash
+ENV BUN_INSTALL="/home/node/.bun"
+ENV PATH="$BUN_INSTALL/bin:$PATH"
+
+# QMD
+RUN bun install -g https://github.com/tobi/qmd
 
 ENTRYPOINT ["tini", "--", "entrypoint.sh"]
