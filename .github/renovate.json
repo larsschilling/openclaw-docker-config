@@ -1,12 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "automerge": true,
   "pruneBranchAfterAutomerge": true,
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["(^|/)Dockerfile$", "(^|/)docker-compose\\.yml$"],
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/",
+        "/(^|/)docker-compose\\.yml$/"
+      ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[\\w-\\/@]+)(?: versioning=(?<versioning>[\\w-]+))?\\s+ARG\\s+(?<variable>\\w+)=(?<currentValue>.*)\\s"
       ]
@@ -14,8 +19,10 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["openclaw"],
-  "automerge": false,
+      "matchPackageNames": [
+        "openclaw"
+      ],
+      "automerge": false,
       "minimumReleaseAge": "1h"
     }
   ]
