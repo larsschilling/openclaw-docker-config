@@ -22,7 +22,7 @@
          "requireMention": false,
          "topics": {
            "1": { "requireMention": false, "systemPrompt": "Allgemeines Topic – hier geht es um alles mögliche." },
-           "2": { "requireMention": false, "systemPrompt": "To-Do-Topic – hier geht es um Aufgaben, Planung und Produktivität." },
+           "2": { "requireMention": false, "systemPrompt": "To-Do-Topic – hier geht es um Aufgaben, Planung und Produktivität." }
         }
        }
       }
