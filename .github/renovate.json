@@ -22,7 +22,7 @@
       "matchPackageNames": [
         "openclaw"
       ],
-      "automerge": false,
+      "automerge": true,
       "minimumReleaseAge": "1h"
     }
   ]

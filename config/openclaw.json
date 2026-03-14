@@ -3,17 +3,29 @@
     "mode": "local",
     "port": 18789,
     "controlUi": {
-      "allowedOrigins": ["http://localhost"]
+      "allowedOrigins": ["http://localhost:18789"]
     }
   },
 
   "channels": {
     "telegram": {
       "enabled": true,
-      "botToken": "${TELEGRAM_BOT_TOKEN}",
       "dmPolicy": "pairing",
+      "allowFrom": [546356584],
       "groupPolicy": "allowlist",
-      "streamMode": "partial"
+      "streaming": "partial",
+      "groupAllowFrom": [546356584],
+      "historyLimit": 50,
+      "groups": {
+       "-1003778969973": {
+         "allowFrom": [546356584],
+         "requireMention": false,
+         "topics": {
+           "1": { "requireMention": false, "systemPrompt": "Allgemeines Topic – hier geht es um alles mögliche." },
+           "2": { "requireMention": false, "systemPrompt": "To-Do-Topic – hier geht es um Aufgaben, Planung und Produktivität." },
+        }
+       }
+      }
     }
   },
 
@@ -27,7 +39,80 @@
 
   "models": {
     "mode": "merge",
+    
     "providers": {
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "minimax/minimax-m2.5",
+            "name": "MiniMax M2.5",
+            "contextWindow": 205000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "google/gemini-2.5-flash-lite",
+            "name": "Gemini Flash-Lite",
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "google/gemini-2.5-flash",
+            "name": "Gemini 2.5 Flash",
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "anthropic/claude-haiku-4-5",
+            "name": "Claude Haiku 4.5",
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "anthropic/claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6",
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "anthropic/claude-opus-4-6",
+            "name": "Claude Opus 4.6",
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek/deepseek-v3.2",
+            "name": "DeepSeek V3.2",
+            "contextWindow": 164000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "moonshotai/kimi-k2.5",
+            "name": "Kimi K2.5",
+            "contextWindow": 262000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "z-ai/glm-5",
+            "name": "GLM-5",
+            "contextWindow": 205000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "openai/gpt-5-mini",
+            "name": "GPT-5 Mini",
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "openai/gpt-5-nano",
+            "name": "GPT-5 Nano",
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
       "google": {
         "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
         "apiKey": "${GOOGLE_HEARTBEAT_API_KEY}",
@@ -38,54 +123,40 @@
             "name": "Gemini 2.0 Flash Lite"
           }
         ]
-      },
-      "nvidia": {
-        "baseUrl": "https://integrate.api.nvidia.com/v1",
-        "apiKey": "${NVIDIA_API_KEY}",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "moonshotai/kimi-k2.5",
-            "name": "kimi-k2.5",
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 200000,
-            "maxTokens": 8192
-          }
-        ]
       }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "kimi-k2.5"
+        "primary": "openrouter/minimax/minimax-m2.5",
+        "fallbacks": [
+          "openrouter/anthropic/claude-haiku-4-5",
+          "google/gemini-2.5-flash"
+        ]
       },
       "models": {
-        "nvidia/moonshotai/kimi-k2.5": {
-          "alias": "kimi-k2.5"
-        }
+        "openrouter/openai/gpt-5-nano": { "alias": "nano" },
+        "google/gemini-2.5-flash-lite": { "alias": "flashlite" },
+        "google/gemini-2.5-flash": { "alias": "flash" },
+        "openrouter/deepseek/deepseek-v3.2": { "alias": "deepseek" },
+        "openrouter/minimax/minimax-m2.5": { "alias": "minimax" },
+        "openrouter/moonshotai/kimi-k2.5": { "alias": "kimi" },
+        "openrouter/z-ai/glm-5": { "alias": "glm" },
+        "openrouter/anthropic/claude-haiku-4-5": { "alias": "haiku" },
+        "openrouter/anthropic/claude-sonnet-4-6": { "alias": "sonnet" },
+        "openrouter/anthropic/claude-opus-4-6": { "alias": "opus" },
+        "openrouter/openai/gpt-5-mini": { "alias": "gpt" }
       },
       "heartbeat": {
         "model": "google/gemini-2.0-flash-lite",
-        "every": "30m"
+        "every": "55m",
+        "target": "last"
       },
       "compaction": {
         "mode": "safeguard"
       },
-      "maxConcurrent": 4,
-      "subagents": {
-        "model": "nvidia/moonshotai/kimi-k2.5",
-        "maxConcurrent": 8
-      }
+      "maxConcurrent": 4
     }
   },
   "tools": {
@@ -110,13 +181,13 @@
 
   "auth": {
     "profiles": {
-      "anthropic:manual": {
-        "provider": "anthropic",
-        "mode": "token"
+      "openrouter:manual": {
+        "provider": "openrouter",
+        "mode": "api_key"
       }
     },
     "order": {
-      "anthropic": ["anthropic:manual"]
+      "openrouter": ["openrouter:manual"]
     }
   },
 
