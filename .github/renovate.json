@@ -5,6 +5,10 @@
   ],
   "dependencyDashboard": true,
   "automerge": true,
+  "branchPrefix": "renovate-updates/",
+  "recreateWhen": "always",
+  "rebaseWhen": "behind-base-branch",
+
   "pruneBranchAfterAutomerge": true,
   "customManagers": [
     {
@@ -22,6 +26,13 @@
     {
       "matchPackageNames": ["openclaw"],
       "automerge": true,
+      "branchPrefix": "renovate-updates/",
+      "recreateWhen": "always",
+      "rebaseWhen": "behind-base-branch",
+  "branchPrefix": "renovate-updates/",
+  "recreateWhen": "always",
+  "rebaseWhen": "behind-base-branch",
+
       "minimumReleaseAge": "1h"
     },
     {
