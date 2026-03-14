@@ -3,7 +3,7 @@
 ###############################################################################
 
 # Stage 1: Builder - Python packages for CPU-only
-FROM python:3.11-slim-bookworm AS python-builder
+FROM python:3.13-slim-bookworm AS python-builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl git build-essential \
