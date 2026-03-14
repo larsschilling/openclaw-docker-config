@@ -1,6 +1,32 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>larsschilling/openclaw-renovate-config"
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "pruneBranchAfterAutomerge": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/",
+        "/(^|/)docker-compose\\.yml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[\\w-\\/@]+)(?: versioning=(?<versioning>[\\w-]+))?\\s+ARG\\s+(?<variable>\\w+)=(?<currentValue>[^\\s]+)"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["openclaw"],
+      "automerge": true,
+      "minimumReleaseAge": "1h"
+    },
+    {
+      "matchCategories": ["docker"],
+      "addLabels": ["docker"]
+    }
   ]
 }
