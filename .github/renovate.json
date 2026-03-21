@@ -1,16 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
 
-  "forkProcessing": "enabled",
-
   "extends": [
     "config:recommended"
   ],
   "dependencyDashboard": true,
   "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true,
-
+  "automergeType": "pr",
+  "platformAutomerge": true,
   "pruneBranchAfterAutomerge": true,
   "customManagers": [
     {
@@ -20,7 +17,7 @@
         "/(^|/)docker-compose\\.yml$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[\\w-\\/@]+)(?: versioning=(?<versioning>[\\w-]+))?\\s+ARG\\s+(?<variable>\\w+)=(?<currentValue>[^\\s]+)"
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\s+ARG\\s+(?<variable>\\w+)=(?<currentValue>\\S+)"
       ]
     }
   ],
