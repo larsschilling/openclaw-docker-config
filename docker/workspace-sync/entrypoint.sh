@@ -12,10 +12,10 @@ git config --global --add safe.directory /workspace
 
 SCHEDULE="${GIT_WORKSPACE_SYNC_SCHEDULE:-0 4 * * *}"
 
-if [[ -n "$GIT_WORKSPACE_REPO" ]]; then
+if [[ -n "${GIT_WORKSPACE_REPO:-}" ]]; then
     echo "[workspace-sync] Repo: $GIT_WORKSPACE_REPO"
 fi
-if [[ -n "$GIT_WORKSPACE_REMOTE" ]]; then
+if [[ -n "${GIT_WORKSPACE_REMOTE:-}" ]]; then
     echo "[workspace-sync] Remote: VARIABLE_HIDDEN_FOR_SECURITY"
 fi
 echo "[workspace-sync] Branch: ${GIT_WORKSPACE_BRANCH:-auto}"
