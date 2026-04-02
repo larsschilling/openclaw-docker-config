@@ -41,74 +41,86 @@
     "mode": "merge",
     
     "providers": {
-      "openrouter": {
-        "baseUrl": "https://openrouter.ai/api/v1",
-        "api": "openai-completions",
+      "zen-openai": {
+        "baseUrl": "https://opencode.ai/zen/v1",
+        "api": "openai",
         "models": [
           {
-            "id": "minimax/minimax-m2.5",
-            "name": "MiniMax M2.5",
-            "contextWindow": 205000,
+            "id": "gpt-5.4-mini",
+            "name": "GPT 5.4 Mini",
+            "contextWindow": 128000,
             "maxTokens": 8192
           },
           {
-            "id": "google/gemini-2.5-flash-lite",
-            "name": "Gemini Flash-Lite",
-            "contextWindow": 1000000,
+            "id": "gpt-5-nano",
+            "name": "GPT 5 Nano",
+            "contextWindow": 128000,
             "maxTokens": 8192
-          },
+          }
+        ]
+      },
+      "zen-anthropic": {
+        "baseUrl": "https://opencode.ai/zen/v1",
+        "api": "anthropic",
+        "models": [
           {
-            "id": "google/gemini-2.5-flash",
-            "name": "Gemini 2.5 Flash",
-            "contextWindow": 1000000,
-            "maxTokens": 8192
-          },
-          {
-            "id": "anthropic/claude-haiku-4-5",
+            "id": "claude-haiku-4-5",
             "name": "Claude Haiku 4.5",
             "contextWindow": 200000,
             "maxTokens": 8192
           },
           {
-            "id": "anthropic/claude-sonnet-4-6",
+            "id": "claude-sonnet-4-6",
             "name": "Claude Sonnet 4.6",
             "contextWindow": 1000000,
             "maxTokens": 8192
           },
           {
-            "id": "anthropic/claude-opus-4-6",
+            "id": "claude-opus-4-6",
             "name": "Claude Opus 4.6",
             "contextWindow": 1000000,
             "maxTokens": 8192
+          }
+        ]
+      },
+      "zen-google": {
+        "baseUrl": "https://opencode.ai/zen/v1",
+        "api": "google-generative-ai",
+        "models": [
+          {
+            "id": "gemini-3-flash",
+            "name": "Gemini 3 Flash",
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "zen": {
+        "baseUrl": "https://opencode.ai/zen/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "minimax-m2.5-free",
+            "name": "MiniMax M2.5 Free",
+            "contextWindow": 205000,
+            "maxTokens": 8192
           },
           {
-            "id": "deepseek/deepseek-v3.2",
-            "name": "DeepSeek V3.2",
+            "id": "qwen3.6-plus-free",
+            "name": "Qwen3.6 Plus Free",
             "contextWindow": 164000,
             "maxTokens": 8192
           },
           {
-            "id": "moonshotai/kimi-k2.5",
+            "id": "kimi-k2.5",
             "name": "Kimi K2.5",
             "contextWindow": 262000,
             "maxTokens": 8192
           },
           {
-            "id": "z-ai/glm-5",
-            "name": "GLM-5",
+            "id": "glm-5",
+            "name": "GLM 5",
             "contextWindow": 205000,
-            "maxTokens": 8192
-          },
-          {
-            "id": "openai/gpt-5-mini",
-            "name": "GPT-5 Mini",
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          },
-          {
-            "id": "openai/gpt-5-nano",
-            "name": "GPT-5 Nano",
-            "contextWindow": 128000,
             "maxTokens": 8192
           }
         ]
@@ -129,24 +141,23 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openrouter/minimax/minimax-m2.5",
+        "primary": "zen/minimax-m2.5-free",
         "fallbacks": [
-          "openrouter/anthropic/claude-haiku-4-5",
-          "google/gemini-2.5-flash"
+          "zen-anthropic/claude-haiku-4-5",
+          "zen-openai/gpt-5-nano"
         ]
       },
       "models": {
-        "openrouter/openai/gpt-5-nano": { "alias": "nano" },
-        "google/gemini-2.5-flash-lite": { "alias": "flashlite" },
-        "google/gemini-2.5-flash": { "alias": "flash" },
-        "openrouter/deepseek/deepseek-v3.2": { "alias": "deepseek" },
-        "openrouter/minimax/minimax-m2.5": { "alias": "minimax" },
-        "openrouter/moonshotai/kimi-k2.5": { "alias": "kimi" },
-        "openrouter/z-ai/glm-5": { "alias": "glm" },
-        "openrouter/anthropic/claude-haiku-4-5": { "alias": "haiku" },
-        "openrouter/anthropic/claude-sonnet-4-6": { "alias": "sonnet" },
-        "openrouter/anthropic/claude-opus-4-6": { "alias": "opus" },
-        "openrouter/openai/gpt-5-mini": { "alias": "gpt" }
+        "zen-openai/gpt-5-nano": { "alias": "nano" },
+        "zen-google/gemini-3-flash": { "alias": "gemini" },
+        "zen/qwen3.6-plus-free": { "alias": "qwen" },
+        "zen/minimax-m2.5-free": { "alias": "minimax" },
+        "zen/kimi-k2.5": { "alias": "kimi" },
+        "zen/glm-5": { "alias": "glm" },
+        "zen-anthropic/claude-haiku-4-5": { "alias": "haiku" },
+        "zen-anthropic/claude-sonnet-4-6": { "alias": "sonnet" },
+        "zen-anthropic/claude-opus-4-6": { "alias": "opus" },
+        "zen-openai/gpt-5.4-mini": { "alias": "gpt" }
       },
       "heartbeat": {
         "model": "google/gemini-2.0-flash-lite",
@@ -162,11 +173,7 @@
   "tools": {
     "web": {
       "search": {
-        "provider": "gemini",
-        "gemini": {
-          "apiKey": "${GEMINI_API_KEY}",
-          "model": "gemini-2.5-flash"
-        }
+        "provider": "gemini"
       }
     }
   },
@@ -181,13 +188,28 @@
 
   "auth": {
     "profiles": {
-      "openrouter:manual": {
-        "provider": "openrouter",
+      "zen:manual": {
+        "provider": "zen",
+        "mode": "api_key"
+      },
+      "zen-anthropic:manual": {
+        "provider": "zen-anthropic",
+        "mode": "api_key"
+      },
+      "zen-openai:manual": {
+        "provider": "zen-openai",
+        "mode": "api_key"
+      },
+      "zen-google:manual": {
+        "provider": "zen-google",
         "mode": "api_key"
       }
     },
     "order": {
-      "openrouter": ["openrouter:manual"]
+      "zen": ["zen:manual"],
+      "zen-anthropic": ["zen-anthropic:manual"],
+      "zen-openai": ["zen-openai:manual"],
+      "zen-google": ["zen-google:manual"]
     }
   },
 
