@@ -17,7 +17,7 @@ RUN python3 -m venv /opt/venv \
        faster-whisper
 
 # Stage 2: Bun builder
-FROM node:24-bookworm-slim AS bun-builder
+FROM node:26-bookworm-slim AS bun-builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates unzip \
@@ -27,7 +27,7 @@ USER node
 RUN curl -fsSL https://bun.sh/install | bash
 
 # Stage 3: Final minimal image
-FROM node:24-bookworm-slim AS final
+FROM node:26-bookworm-slim AS final
 
 
 # renovate: datasource=npm depName=openclaw versioning=loose
