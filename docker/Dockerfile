@@ -31,7 +31,7 @@ FROM node:26-bookworm-slim AS final
 
 
 # renovate: datasource=npm depName=openclaw versioning=loose
-ARG OPENCLAW_VERSION=2026.11.1
+ARG OPENCLAW_VERSION=2026.11.2
 
 # Install minimal runtime dependencies + headless chromium
 RUN apt-get update && apt-get install -y --no-install-recommends \
